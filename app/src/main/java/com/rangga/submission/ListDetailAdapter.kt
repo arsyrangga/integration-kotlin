@@ -27,11 +27,11 @@ class ListDetailAdapter(private val listAccount: List<Account>) : RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int)  {
-        val (id, name, avatar) = listAccount[position]
+        val (id, avatar) = listAccount[position]
         Glide.with(holder.itemView.context)
             .load(avatar)
             .into(holder.imgPhoto)
-        holder.tvName.text = name
+        holder.tvName.text = id
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listAccount[position]) }
     }
 

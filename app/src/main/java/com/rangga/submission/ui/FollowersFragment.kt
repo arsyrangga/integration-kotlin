@@ -40,7 +40,7 @@ class FollowersFragment : Fragment() {
     private fun getAccountFollowers() {
         val username = activity?.intent?.extras?.getString("username").toString()
         val call = ApiRequest.getApiService().getUserFollowers(username)
-        binding.progressBar.visibility = View.INVISIBLE
+        binding.progressBar.visibility = View.VISIBLE
 
         call.enqueue(object : Callback<List<FollowersResponse>> {
             override fun onResponse(
@@ -51,7 +51,6 @@ class FollowersFragment : Fragment() {
                     val data = response.body()
                     data?.forEach() {
                         list.add(Account(
-                            it.login,
                             it.login,
                             it.avatarUrl
                         ))

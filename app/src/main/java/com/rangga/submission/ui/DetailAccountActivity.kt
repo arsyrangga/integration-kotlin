@@ -59,7 +59,7 @@ class DetailAccountActivity : AppCompatActivity() {
 
     private fun getAccountDetail(username:String) {
         val call = ApiRequest.getApiService().getDetailUser(username)
-        binding.progressBar.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.INVISIBLE
 
         call.enqueue(object : Callback<DetailAccountResponse> {
             @SuppressLint("SetTextI18n")

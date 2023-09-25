@@ -26,7 +26,6 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var rvAccount: RecyclerView
-    private val list = ArrayList<Account>()
 
 
     private fun handleDetail(data:Account) {
@@ -62,6 +61,9 @@ class MainActivity : AppCompatActivity() {
     private fun getAccountList(text: String) {
         val call = ApiRequest.getApiService().getUser(text)
         binding.progressBar.visibility = View.VISIBLE
+        val list = ArrayList<Account>()
+        showRecyclerList(list)
+
 
         call.enqueue(object : Callback<ListAccountResponse> {
             override fun onResponse(
@@ -73,11 +75,10 @@ class MainActivity : AppCompatActivity() {
                     data!!.items!!.forEach { item ->
                         list.add(Account(
                             item!!.login,
-                            item.login,
                             item.avatarUrl
                         ))
                     }
-                    showRecyclerList()
+                    showRecyclerList(list)
 
                     binding.progressBar.visibility = View.INVISIBLE
                     // Log or print the data
@@ -99,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showRecyclerList() {
+    private fun showRecyclerList(list: List<Account>) {
         rvAccount.layoutManager = GridLayoutManager(this@MainActivity, 2)
         val listAccountAdapter = ListAccountAdapter(list)
         rvAccount.adapter = listAccountAdapter
